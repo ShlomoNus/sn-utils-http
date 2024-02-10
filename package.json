@@ -1,5 +1,5 @@
 {
-    "name": "sn-types-backend",
+    "name": "sn-utils-general",
     "version": "1.0.2",
     "description": "",
     "main": "dist/index.js",
@@ -13,13 +13,13 @@
     "author": "Shlomo Nusbaum",
     "license": "ISC",
     "peerDependencies": {
-        "typescript": "^5.3.3",
         "eslint": "^8.2.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-config-airbnb-typescript": "^17.1.0",
         "eslint-config-prettier": "^8.8.0",
         "eslint-plugin-import": "^2.25.2",
         "eslint-plugin-prettier": "^5.0.0",
-        "prettier": "^3.0.0"
+        "prettier": "^3.0.0",
+        "typescript": "^5.3.3"
     }
 }

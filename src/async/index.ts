@@ -5,7 +5,7 @@ type AsyncResult<TData> = Promise<
       }
     | {
           status: false;
-          error: any;
+          error: Error;
       }
 >;
 
