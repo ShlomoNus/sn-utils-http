@@ -1,15 +1,19 @@
-type AsyncResult<TData> = Promise<
+type Anytype = any;
+
+type AsyncResult<TData = Anytype, TError = Anytype> = Promise<
     | {
           status: true;
           data: TData;
       }
     | {
           status: false;
-          error: Error;
+          error: TError;
       }
 >;
 
-export async function asyncWrapper<T>(promise: Promise<T>): AsyncResult<T> {
+export async function asyncWrapper<TData = Anytype, TError = Anytype>(
+    promise: Promise<TData>
+): AsyncResult<TData, TError> {
     try {
         const data = await promise;
         return { status: true, data };
