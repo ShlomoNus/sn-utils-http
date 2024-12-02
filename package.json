@@ -3,10 +3,17 @@
     "version": "1.0.7",
     "description": "",
     "main": "dist/index.js",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "files": [
-        "/dist"
+        "dist/"
     ],
+    "exports": {
+        ".": {
+            "import": "./dist/index.mjs",
+            "require": "./dist/index.js"
+        }
+    },
     "scripts": {
         "prettier": "prettier --check .",
         "prettier-fix": "prettier --write .",
