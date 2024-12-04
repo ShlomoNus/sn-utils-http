@@ -3,7 +3,7 @@ name: Node.js Package
 on:
   push:
     tags:
-      - 'v*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
 jobs:
   build:
@@ -13,7 +13,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci    
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
+      - run: npm run lint  # Optional linting step
+      - run: npm test      # Optional testing step
       - run: npm run build
 
   publish:
@@ -22,14 +31,20 @@ jobs:
     permissions:
       contents: read
       packages: write
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.GTOKEN }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
-      - run: echo ${{ secrets.GTOKEN }}
+      - name: Cache Node.js modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm ci
       - run: npm publish
-   
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GTOKEN }}
