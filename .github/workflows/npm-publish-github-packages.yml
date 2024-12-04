@@ -28,9 +28,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://npm.pkg.github.com/
-      - run: |
-          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GTOKEN }}" > ~/.npmrc
-      - run: npm ci
+      - run: echo ${{ secrets.GTOKEN }}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GTOKEN }}
